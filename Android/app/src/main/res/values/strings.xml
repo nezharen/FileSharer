@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FileSharer</string>
+    <string name="action_settings">Settings</string>
+    <string name="quit_confirm">Do you really want to quit?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="listening">Listening on</string>
+    <string name="wifi_not_connected">Error: WiFi is not connected. Please connect WiFi and restart this app.</string>
+    <string name="init_failed">Init failed.</string>
+    <string name="unknown_error">Unknown error.</string>
+    <string name="input_ip_address">Input IP address to connect</string>
+    <string name="connecting">Connecting</string>
+    <string name="connected">Connected</string>
+    <string name="connect_failed">Connect failed</string>
+    <string name="sending_file">Sending file</string>
+    <string name="send_file_done">Send file done</string>
+    <string name="send_file_failed">Send file failed</string>
+    <string name="receiving_file">Receiving file</string>
+    <string name="receive_file_done">Receive file done</string>
+    <string name="receive_file_failed">Receive file failed</string>
+    <string name="select_file_to_send">Select file to send</string>
+    <string name="invalid_ip_address">Invalid IP address</string>
+    <string name="client_already_added">Client is already added</string>
+    <string name="file_manager_not_found">Error: your mobile does not have a file manager</string>
+    <string name="file">File</string>
+    <string name="has_been_saved_at">has been saved at</string>
+    <string name="failed_to_receive">failed to receive</string>
+    <string name="do_you_want_to_receive">Do you want to receive</string>
+    <string name="from">from</string>
+</resources>
