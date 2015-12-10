@@ -1,6 +1,7 @@
 #include <QtGui>
 #include "MainWindow.h"
 #include "ConnectDialog.h"
+#include "MainServer.h"
 
 MainWindow::MainWindow()
 {
@@ -13,6 +14,7 @@ MainWindow::MainWindow()
 	setFixedSize(320, 560);
 	setWindowTitle(tr("FileSharer"));
 	connectDialog = NULL;
+	mainServer = new MainServer();
 }
 
 void MainWindow::connectHost()

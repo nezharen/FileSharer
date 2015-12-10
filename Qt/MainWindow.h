@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 class ConnectDialog;
+class MainServer;
 
 class MainWindow : public QMainWindow
 {
@@ -16,6 +17,7 @@ private:
 	QMenu *startMenu;
 	QAction *connectAction;
 	ConnectDialog *connectDialog;
+	MainServer *mainServer;
 };
 
 #endif
