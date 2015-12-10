@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 class ConnectDialog;
-class MainServer;
+class QTcpServer;
 
 class MainWindow : public QMainWindow
 {
@@ -13,11 +13,12 @@ public:
 	MainWindow();
 protected slots:
 	void connectHost();
+	void acceptNewConnection();
 private:
 	QMenu *startMenu;
 	QAction *connectAction;
 	ConnectDialog *connectDialog;
-	MainServer *mainServer;
+	QTcpServer *mainServerSocket;
 };
 
 #endif
