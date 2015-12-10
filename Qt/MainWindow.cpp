@@ -2,8 +2,9 @@
 #include <QtGui>
 #include <QtNetwork>
 #include "defs.h"
-#include "MainWindow.h"
+#include "Server.h"
 #include "ConnectDialog.h"
+#include "MainWindow.h"
 
 MainWindow::MainWindow()
 {
@@ -16,6 +17,7 @@ MainWindow::MainWindow()
 	setFixedSize(320, 560);
 	setWindowTitle(tr("FileSharer"));
 	connectDialog = NULL;
+	serverList = new QList<Server*>;
 	mainServerSocket = new QTcpServer(this);
 	connect(mainServerSocket, SIGNAL(newConnection()), this, SLOT(acceptNewConnection()));
 	if (!(mainServerSocket->listen(QHostAddress::Any, SERVER_PORT)))
@@ -40,5 +42,6 @@ void MainWindow::connectHost()
 
 void MainWindow::acceptNewConnection()
 {
-	mainServerSocket->nextPendingConnection();
+	Server *server = new Server(mainServerSocket->nextPendingConnection());
+	serverList->append(server);
 }

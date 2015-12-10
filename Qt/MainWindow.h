@@ -5,6 +5,7 @@
 
 class ConnectDialog;
 class QTcpServer;
+class Server;
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +20,7 @@ private:
 	QAction *connectAction;
 	ConnectDialog *connectDialog;
 	QTcpServer *mainServerSocket;
+	QList<Server*> *serverList;
 };
 
 #endif
