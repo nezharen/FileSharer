@@ -53,7 +53,7 @@ MainWindow::MainWindow()
 
 void MainWindow::showAbout()
 {
-	QMessageBox::about(this, tr("About FileSharer"), tr("<h2>FileSharer</h2><p>Click \"Connect\" to connect hosts.</p><p>Double click connected hosts to send file to it!</p>"));
+	QMessageBox::about(this, tr("About FileSharer"), tr("<h2>FileSharer</h2><p>Click \"Connect\" to connect hosts.</p><p>Double click connected hosts to send file to it.</p>"));
 }
 
 void MainWindow::connectHost()
