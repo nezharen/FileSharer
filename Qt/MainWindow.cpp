@@ -59,20 +59,36 @@ void MainWindow::acceptNewConnection()
 {
 	Server *server = new Server(mainServerSocket->nextPendingConnection());
 	servers->append(server);
-}
-
-void MainWindow::newClient(const QString &hostAddress)
-{
 	bool inClients = false;
 	foreach (Client *client, *clients)
-		if (*(client->host) == hostAddress)
+		if (client->host == server->host)
 		{
 			inClients = true;
 			break;
 		}
 	if (!inClients)
 	{
-		Client *newClient = new Client(new QString(hostAddress));
+		Client *newClient = new Client(server->host);
+		connect(newClient, SIGNAL(statusChanged()), this, SLOT(updateClientsTable()));
+		clients->append(newClient);
+		updateClientsTable();
+		newClient->connectHost();
+	}
+}
+
+void MainWindow::newClient(const QString &hostAddress)
+{
+	bool inClients = false;
+	foreach (Client *client, *clients)
+		if (client->host == hostAddress)
+		{
+			inClients = true;
+			break;
+		}
+	if (!inClients)
+	{
+		Client *newClient = new Client(hostAddress);
+		connect(newClient, SIGNAL(statusChanged()), this, SLOT(updateClientsTable()));
 		clients->append(newClient);
 		updateClientsTable();
 		newClient->connectHost();
@@ -87,7 +103,7 @@ void MainWindow::updateClientsTable()
 	clientsTable->setRowCount(clients->size());
 	for (int i = 0; i < clients->size(); i++)
 	{
-		clientsTable->setItem(i, 0, new QTableWidgetItem(*(clients->at(i)->host)));
+		clientsTable->setItem(i, 0, new QTableWidgetItem(clients->at(i)->host));
 		switch (clients->at(i)->status)
 		{
 			case CLIENT_STATUS_CONNECTING:

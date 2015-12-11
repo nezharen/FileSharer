@@ -9,10 +9,12 @@ class Client : public QObject
 {
 	Q_OBJECT
 public:
-	Client(QString *host);
+	Client(QString host);
 	void connectHost();
-	QString *host;
+	QString host;
 	int status;
+signals:
+	void statusChanged();
 protected slots:
 	void connected();
 private:

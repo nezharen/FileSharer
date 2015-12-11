@@ -2,7 +2,7 @@
 #include "defs.h"
 #include "Client.h"
 
-Client::Client(QString *host)
+Client::Client(QString host)
 {
 	this->host = host;
 	status = CLIENT_STATUS_CONNECTING;
@@ -12,10 +12,11 @@ Client::Client(QString *host)
 
 void Client::connectHost()
 {
-	socket->connectToHost(*host, SERVER_PORT);
+	socket->connectToHost(host, SERVER_PORT);
 }
 
 void Client::connected()
 {
 	status = CLIENT_STATUS_CONNECTED;
+	emit statusChanged();
 }
