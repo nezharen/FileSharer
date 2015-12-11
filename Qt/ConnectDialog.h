@@ -14,6 +14,10 @@ class ConnectDialog : public QDialog
 	Q_OBJECT
 public:
 	ConnectDialog();
+signals:
+	void newClient(const QString &hostAddress);
+protected slots:
+	void okButtonClicked();
 private:
 	QLabel *ipLabel;
 	QLineEdit *ipEdit;

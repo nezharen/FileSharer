@@ -3,13 +3,20 @@
 
 #include <QObject>
 
+class QTcpSocket;
+
 class Client : public QObject
 {
 	Q_OBJECT
 public:
 	Client(QString *host);
-private:
+	void connectHost();
 	QString *host;
+	int status;
+protected slots:
+	void connected();
+private:
+	QTcpSocket *socket;
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class QTableWidget;
 class ConnectDialog;
 class QTcpServer;
 class Server;
@@ -16,13 +17,16 @@ public:
 protected slots:
 	void connectHost();
 	void acceptNewConnection();
+	void newClient(const QString &hostAddress);
+	void updateClientsTable();
 private:
 	QMenu *startMenu;
-	QAction *connectAction;
+	QAction *connectAction, *exitAction;
+	QTableWidget *clientsTable;
 	ConnectDialog *connectDialog;
 	QTcpServer *mainServerSocket;
-	QList<Server*> *serverList;
-	QList<Client*> *clientList;
+	QList<Server*> *servers;
+	QList<Client*> *clients;
 };
 
 #endif

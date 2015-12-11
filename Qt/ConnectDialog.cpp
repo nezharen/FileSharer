@@ -14,6 +14,7 @@ ConnectDialog::ConnectDialog()
 
 	okButton = new QPushButton(tr("&OK"));
 	okButton->setDefault(true);
+	connect(okButton, SIGNAL(clicked()), this, SLOT(okButtonClicked()));
 	exitButton = new QPushButton(tr("&Exit"));
 	connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 	buttonLayout = new QHBoxLayout;
@@ -28,4 +29,10 @@ ConnectDialog::ConnectDialog()
 	setLayout(mainLayout);
 	setWindowTitle(tr("FileSharer"));
 	setFixedSize(sizeHint());
+}
+
+void ConnectDialog::okButtonClicked()
+{
+	emit newClient(ipEdit->text());
+	close();
 }
