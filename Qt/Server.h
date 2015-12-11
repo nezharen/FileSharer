@@ -11,6 +11,10 @@ class Server : public QObject
 public:
 	Server(QTcpSocket *socket);
 	QString host;
+signals:
+	void serverConnectionClosed(Server *server);
+protected slots:
+	void closeConnection();
 private:
 	QTcpSocket *socket;
 };

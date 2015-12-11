@@ -15,13 +15,16 @@ class MainWindow : public QMainWindow
 public:
 	MainWindow();
 protected slots:
+	void showAbout();
 	void connectHost();
 	void acceptNewConnection();
 	void newClient(const QString &hostAddress);
 	void updateClientsTable();
+	void closeServerConnection(Server *server);
+	void closeClientConnection(Client *client);
 private:
-	QMenu *startMenu;
-	QAction *connectAction, *exitAction;
+	QMenu *startMenu, *aboutMenu;
+	QAction *connectAction, *exitAction, *aboutAction, *aboutQtAction;
 	QTableWidget *clientsTable;
 	ConnectDialog *connectDialog;
 	QTcpServer *mainServerSocket;

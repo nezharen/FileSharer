@@ -15,8 +15,10 @@ public:
 	int status;
 signals:
 	void statusChanged();
+	void clientConnectionClosed(Client *client);
 protected slots:
 	void connected();
+	void closeConnection();
 private:
 	QTcpSocket *socket;
 };
