@@ -11,7 +11,6 @@ class Server : public QObject
 public:
 	Server(QTcpSocket *socket);
 	QString host;
-	int status;
 private:
 	QTcpSocket *socket;
 };
