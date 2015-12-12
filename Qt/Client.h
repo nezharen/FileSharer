@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include <QObject>
+#include "defs.h"
 
 class QTcpSocket;
 
@@ -11,6 +12,7 @@ class Client : public QObject
 public:
 	Client(QString host);
 	void connectHost();
+	void sendFile(QString path);
 	QString host;
 	int status;
 signals:
@@ -19,8 +21,14 @@ signals:
 protected slots:
 	void connected();
 	void closeConnection();
+	void readCommand();
+	void sendFileContent();
 private:
-	QTcpSocket *socket;
+	QTcpSocket *socket, *file_socket;
+	QString path;
+	char command[BUFFER_SIZE];
+	int commandLength;
+	char buffer[BUFFER_SIZE];
 };
 
 #endif

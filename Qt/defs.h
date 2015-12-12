@@ -22,4 +22,6 @@
 
 #define BUFFER_SIZE 8192
 
+int getInt(const char *s, int start, int end);
+
 #endif

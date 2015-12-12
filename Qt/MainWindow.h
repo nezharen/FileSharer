@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 class QTableWidget;
+class QTableWidgetItem;
 class ConnectDialog;
 class QTcpServer;
 class Server;
@@ -20,6 +21,7 @@ protected slots:
 	void acceptNewConnection();
 	void newClient(const QString &hostAddress);
 	void updateClientsTable();
+	void selectFileToSend(QTableWidgetItem *item);
 	void closeServerConnection(Server *server);
 	void closeClientConnection(Client *client);
 	void askForReceive(Server *server);

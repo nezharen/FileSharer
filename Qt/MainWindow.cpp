@@ -37,6 +37,7 @@ MainWindow::MainWindow()
 	clientsTable->verticalHeader()->setVisible(false);
 	clientsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	clientsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+	connect(clientsTable, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(selectFileToSend(QTableWidgetItem *)));
 	setCentralWidget(clientsTable);
 	setFixedSize(300, 600);
 	setWindowTitle(tr("FileSharer"));
@@ -158,6 +159,17 @@ void MainWindow::updateClientsTable()
 				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Unknown error")));
 				break;
 		}
+	}
+}
+
+void MainWindow::selectFileToSend(QTableWidgetItem *item)
+{
+	int status = clients->at(item->row())->status;
+	if ((status == CLIENT_STATUS_CONNECTED) || (status == CLIENT_STATUS_RECEIVE_FILE_DONE) || (status == CLIENT_STATUS_SEND_FILE_DONE) || (status == CLIENT_STATUS_RECEIVE_FILE_FAILED) || (status == CLIENT_STATUS_SEND_FILE_FAILED))
+	{
+		QString path = QFileDialog::getOpenFileName(this, tr("Select file to send"), ".", tr("All files (*.*)"));
+		if (!path.isEmpty())
+			clients->at(item->row())->sendFile(path);
 	}
 }
 
