@@ -38,6 +38,7 @@ MainWindow::MainWindow()
 	clientsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	clientsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	setCentralWidget(clientsTable);
+	setFixedSize(300, 600);
 	setWindowTitle(tr("FileSharer"));
 	connectDialog = NULL;
 	servers = new QList<Server*>;

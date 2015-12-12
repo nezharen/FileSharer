@@ -93,6 +93,8 @@ void Server::rejectFile()
 
 void Server::readyToReceiveFile()
 {
+	QFile file(filename);
+	file.remove();
 	file_socket = file_socket_server->nextPendingConnection();
 	connect(file_socket, SIGNAL(disconnected()), this, SLOT(receiveFileSuccess()));
 	connect(file_socket, SIGNAL(readyRead()), this, SLOT(receiveFile()));
