@@ -45,8 +45,6 @@ void Client::readCommand()
 			command[commandLength++] = buffer[i];
 		if (command[commandLength - 1] == '\n')
 		{
-			for (int i = 0; i < commandLength; i++)
-				printf("%c", command[i]);
 			commandLength--;
 			int commandCode = getInt(command, 0, 2);
 			int port;
@@ -54,7 +52,6 @@ void Client::readCommand()
 			{
 				case SERVER_COMMAND_ACCEPT_FILE:
 					port = getInt(command, 4, commandLength - 1);
-					printf("%d\n", port);
 					file_socket->connectToHost(host, port);
 					break;
 				case SERVER_COMMAND_REJECT_FILE:
@@ -110,7 +107,6 @@ void Client::sendFile(QString path)
 
 void Client::sendFileContent()
 {
-	printf("sendFileContent");
 	QFile file(path);
 	if (file.open(QIODevice::ReadOnly))
 		while (!file.atEnd())
