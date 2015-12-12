@@ -73,6 +73,9 @@ void MainWindow::acceptNewConnection()
 {
 	Server *server = new Server(mainServerSocket->nextPendingConnection());
 	connect(server, SIGNAL(serverConnectionClosed(Server *)), this, SLOT(closeServerConnection(Server *)));
+	connect(server, SIGNAL(receiveFileRequest(Server *)), this, SLOT(askForReceive(Server *)));
+	connect(server, SIGNAL(fileReceiveSuccess(Server *)), this, SLOT(fileReceiveSuccess(Server *)));
+	connect(server, SIGNAL(fileReceiveFailed(Server *)), this, SLOT(fileReceiveFailed(Server *)));
 	servers->append(server);
 	bool inClients = false;
 	foreach (Client *client, *clients)
@@ -129,6 +132,27 @@ void MainWindow::updateClientsTable()
 			case CLIENT_STATUS_CONNECTED:
 				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Connected")));
 				break;
+			case CLIENT_STATUS_CONNECT_FAILED:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Connect failed")));
+				break;
+			case CLIENT_STATUS_SENDING_FILE:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Sending file")));
+				break;
+			case CLIENT_STATUS_SEND_FILE_DONE:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Send file done")));
+				break;
+			case CLIENT_STATUS_SEND_FILE_FAILED:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Send file failed")));
+				break;
+			case CLIENT_STATUS_RECEIVING_FILE:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Receiving file")));
+				break;
+			case CLIENT_STATUS_RECEIVE_FILE_DONE:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Receive file done")));
+				break;
+			case CLIENT_STATUS_RECEIVE_FILE_FAILED:
+				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Receive file failed")));
+				break;
 			default:
 				clientsTable->setItem(i, 1, new QTableWidgetItem(tr("Unknown error")));
 				break;
@@ -170,4 +194,44 @@ void MainWindow::closeClientConnection(Client *client)
 	disconnect(client, 0, this, 0);
 	clients->removeOne(client);
 	updateClientsTable();
+}
+
+void MainWindow::askForReceive(Server *server)
+{
+	QMessageBox::StandardButton button = QMessageBox::question(this, tr("FileSharer"), tr("Do you want to receive ") + server->filename + tr(" from ") + server->host, QMessageBox::Yes | QMessageBox::No);
+	if (button == QMessageBox::Yes)
+	{
+		foreach(Client *client, *clients)
+			if (client->host == server->host)
+			{
+				client->status = CLIENT_STATUS_RECEIVING_FILE;
+				updateClientsTable();
+				break;
+			}
+		server->acceptFile();
+	}
+	else
+		server->rejectFile();
+}
+
+void MainWindow::fileReceiveSuccess(Server *server)
+{
+	foreach(Client *client, *clients)
+		if (client->host == server->host)
+		{
+			client->status = CLIENT_STATUS_RECEIVE_FILE_DONE;
+			updateClientsTable();
+			break;
+		}
+}
+
+void MainWindow::fileReceiveFailed(Server *server)
+{
+	foreach(Client *client, *clients)
+		if (client->host == server->host)
+		{
+			client->status = CLIENT_STATUS_RECEIVE_FILE_FAILED;
+			updateClientsTable();
+			break;
+		}
 }

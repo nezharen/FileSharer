@@ -22,6 +22,9 @@ protected slots:
 	void updateClientsTable();
 	void closeServerConnection(Server *server);
 	void closeClientConnection(Client *client);
+	void askForReceive(Server *server);
+	void fileReceiveSuccess(Server *server);
+	void fileReceiveFailed(Server *server);
 private:
 	QMenu *startMenu, *aboutMenu;
 	QAction *connectAction, *exitAction, *aboutAction, *aboutQtAction;
