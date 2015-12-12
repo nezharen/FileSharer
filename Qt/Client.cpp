@@ -14,6 +14,7 @@ Client::Client(QString host)
 	connect(socket, SIGNAL(readyRead()), this, SLOT(readCommand()));
 	file_socket = new QTcpSocket(this);
 	connect(file_socket, SIGNAL(connected()), this, SLOT(sendFileContent()));
+	commandLength = 0;
 }
 
 void Client::connectHost()
