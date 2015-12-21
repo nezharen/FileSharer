@@ -113,10 +113,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (Server server:servers)
-            server.deleteThis();
-        for (Client client:clients)
-            client.deleteThis();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         System.exit(0);
